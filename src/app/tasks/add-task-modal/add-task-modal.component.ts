@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import {ModalController, Platform} from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { LocalNotifications, ScheduleEvery } from '@capacitor/local-notifications';
 
@@ -18,7 +18,8 @@ export class AddTaskModalComponent implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
@@ -35,17 +36,8 @@ export class AddTaskModalComponent implements OnInit {
     }
   }
 
-  save(value?) {
+  async save(value?) {
     const time = (new Date()).getTime();
-    LocalNotifications.schedule({
-      notifications: [{
-        title: 'Your task',
-        body: this.title,
-        id: time,
-        // @ts-ignore
-        schedule: this.getSchedule(),
-      }]
-    });
     value = {
       title: this.title,
       daily_reminder: this.daily_reminder,
@@ -56,8 +48,22 @@ export class AddTaskModalComponent implements OnInit {
     };
 
     if (this.title.length != 0) {
-      this.taskService.newTask(value)
-      this.modalController.dismiss()
+      const taskResponse = await this.taskService.newTask(value);
+      taskResponse.get().then((snapshot) => {
+        console.log(snapshot.id);
+        if(this.platform.is('cordova')) {
+          LocalNotifications.schedule({
+            notifications: [{
+              title: 'Your task',
+              body: this.title,
+              id: time,
+              // @ts-ignore
+              schedule: this.getSchedule(),
+            }]
+          });
+        }
+      });
+      this.modalController.dismiss();
     }
 
   }

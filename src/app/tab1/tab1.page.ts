@@ -112,9 +112,10 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  select(i) {
-    alert(i)
-    i = !i
+  select(task) {
+    const status = !task.status;
+    this.taskService.updateStatusForTask(status, task.id);
+    console.log(task);
   }
 
 }

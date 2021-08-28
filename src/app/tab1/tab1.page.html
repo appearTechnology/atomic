@@ -20,17 +20,17 @@
 
 
   <ion-row style='padding: 10px; margin-top: 200px;' class='ion-no-padding'>
-    <ion-col size='12' *ngFor='let i of tasks'>
+    <ion-col size='12' *ngFor='let task of tasks'>
       <div class="habit-div">
         <ion-row class='ion-no-padding'>
           <ion-col size='10' (click)='edit()'>
-            <h3>{{i.title}}</h3>
+            <h3>{{task.title}}</h3>
           </ion-col>
           <ion-col size='2'>
-            <div class="selected-circle" (click)='select(i.status)' *ngIf='i.status == false'>
+            <div class="selected-circle" (click)='select(task)' *ngIf='task.status === false'>
               <i-feather name="check" style='color: #E5E5E5;'></i-feather>
             </div>
-            <div class="selected-circle" style='background: #6DE48E; border-color: #fff' (click)='select(i.status)' *ngIf='i.status == true'>
+            <div class="selected-circle" style='background: #6DE48E; border-color: #fff' (click)='select(task)' *ngIf='task.status === true'>
               <i-feather name="check" style='color: #fff;'></i-feather>
             </div>
           </ion-col>

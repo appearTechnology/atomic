@@ -19,22 +19,28 @@ export class TaskService {
   ) { }
 
   async newTask(task: any) {
-    await this.afs.collection(`task`).add(task)
+    return await this.afs.collection(`task`).add(task);
   }
 
   getTasks(id) {
-  this.taskCollection = this.afs.collection<Task>('task', ref => ref.where('uid', '==', `${id}`))
-  this.tasks = this.taskCollection.snapshotChanges().pipe(
-    map(actions => actions.map(a => {
-      if (a.payload.doc.exists == false) {
-        return null
-      } else {
-        const data = a.payload.doc.data() as Task;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }
-    }))
-  );
-  return this.tasks
-}
+    this.taskCollection = this.afs.collection<Task>('task', ref => ref.where('uid', '==', `${id}`))
+    this.tasks = this.taskCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        if (a.payload.doc.exists == false) {
+          return null
+        } else {
+          const data = a.payload.doc.data() as Task;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }
+      }))
+    );
+    return this.tasks
+  }
+
+  updateStatusForTask(status, id) {
+    this.afs.collection<Task>('task').doc(id).update({
+      status
+    });
+  }
 }
