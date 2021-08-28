@@ -1,17 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="header" style='margin-top: 30px;'>
+    <h3 style='font-size: 16px;'>Good morning</h3>
+    <h3 style='font-size: 24px; margin-top: 0px;'>Jade</h3>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <div class="calendar">
+      <ion-row>
+        <ion-col *ngFor='let i of dates'>
+          <div class="selected" style='background-color: #000' *ngIf='i.selected == true'>
+            <h3 style='color: #fff; font-size: 18px; text-align: center; padding-top: 8px;'>{{i.title}}</h3>
+          </div>
+
+          <div class="unselected" *ngIf='i.selected == false'>
+            <h3 style='color: #AAAAAA; font-size: 18px; text-align: center; padding-top: 8px;'>{{i.title}}</h3>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+
+  <ion-row style='padding: 10px; margin-top: 200px;' class='ion-no-padding'>
+    <ion-col size='12' *ngFor='let i of tasks'>
+      <div class="habit-div">
+        <ion-row class='ion-no-padding'>
+          <ion-col size='10' (click)='edit()'>
+            <h3>{{i.title}}</h3>
+          </ion-col>
+          <ion-col size='2'>
+            <div class="selected-circle" (click)='select(i.status)' *ngIf='i.status == false'>
+              <i-feather name="check" style='color: #E5E5E5;'></i-feather>
+            </div>
+            <div class="selected-circle" style='background: #6DE48E; border-color: #fff' (click)='select(i.status)' *ngIf='i.status == true'>
+              <i-feather name="check" style='color: #fff;'></i-feather>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+  </ion-row>
+
+
 </ion-content>

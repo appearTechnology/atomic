@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar transparent>
+    <h3 style='padding-left: 15px; font-family: "PulpLight"; font-size: 30px;'>Login</h3>
+    <ion-button ion-button icon-only fill="clear" size="large" color="dark" (click)="close()" slot="end">
+      <ion-icon name="close" style="color: black"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+  <div class="input-fields" style='margin-top: 50px;'>
+    <ion-item lines="none">
+      <ion-input placeholder='Email' type='email' style='font-size: 20px' [(ngModel)]="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+      </ion-input>
+    </ion-item>
+
+
+    <ion-item lines="none" style='margin-top: 20px;'>
+      <ion-input placeholder='Password' [type]="showPassword ? 'text' : 'password'" style='font-size: 20px;' [(ngModel)]="password"></ion-input>
+      <ion-icon [name]="passwordToggleIcon" style="color: black;" slot='end' (click)='togglePassword()'></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" style='margin-top: 20px;' (click)='presentModal()'>
+      <h3 style='font-size: 18px;'>forgot password?</h3>
+    </ion-item>
+
+
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style='margin: 20px;'>
+    <ion-fab-button style='--background: #000; height: 60px; width: 60px' (click)='error()' *ngIf='this.email.length <= 3 || password.length <= 5'>
+      <ion-icon name="arrow-forward-sharp"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button style='--background: #000; height: 60px; width: 60px' (click)='login()' *ngIf='this.email.length >= 4 && password.length >= 6'>
+      <ion-icon name="arrow-forward-sharp" *ngIf='this.loaderButtons == false;'></ion-icon>
+      <ion-spinner name="crescent" style="color: white;" *ngIf='this.loaderButtons == true;'></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

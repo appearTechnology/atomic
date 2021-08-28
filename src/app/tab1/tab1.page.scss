@@ -1,0 +1,39 @@
+.header {
+  padding: 15px;
+  width: 100%;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  height: 160px;
+  z-index: 10;
+}
+
+.habit-div {
+  width: 100%;
+  padding: 20px;
+  height: 100px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+.selected-circle {
+  height: 35px;
+  width: 35px;
+  padding: 4px;
+  border-radius: 20px;
+  margin-top: 15px;
+  float: right;
+  border: 2px solid #E5E5E5;
+}
+
+.selected {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  background-color: transparent;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

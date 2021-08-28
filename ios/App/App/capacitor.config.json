@@ -1,0 +1,6 @@
+{
+	"appId": "com.atomic.app",
+	"appName": "atomic-app",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
