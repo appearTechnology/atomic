@@ -63,6 +63,7 @@ export class AddTaskModalComponent implements OnInit {
               title: 'Your task',
               body: this.title,
               id: time,
+              sound: 'beep.wav',
               // @ts-ignore
               schedule: this.getSchedule(),
             }]
@@ -76,12 +77,13 @@ export class AddTaskModalComponent implements OnInit {
 
   getSchedule() {
     const at = new Date(this.reminder_time);
+    console.log('setting time of notification', this.reminder_time);
     if(this.daily_reminder) {
       return {
         // at,
         // repeats: this.daily_reminder,
         allowWhileIdle: true,
-        // every: 'day',
+        every: 'day',
         on: {
           hour: at.getHours(),
           minute: at.getMinutes()

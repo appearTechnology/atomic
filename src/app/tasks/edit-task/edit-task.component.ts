@@ -74,6 +74,7 @@ export class EditTaskComponent implements OnInit {
               title: 'Your task',
               body: this.title,
               id: time,
+              sound: 'beep.wav',
               // @ts-ignore
               schedule: this.getSchedule(),
             }]
