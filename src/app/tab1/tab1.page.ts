@@ -6,6 +6,7 @@ import { TaskService } from '../services/task.service';
 import { ModalController } from '@ionic/angular';
 import { EditTaskComponent } from '../tasks/edit-task/edit-task.component';
 import { IonRouterOutlet } from '@ionic/angular';
+import {format} from "date-fns";
 
 @Component({
   selector: 'app-tab1',
@@ -108,9 +109,10 @@ export class Tab1Page implements OnInit {
   }
 
   filterTasks() {
-    for (let i = 0; i < this.tasks.length; i++) {
-      console.log(this.tasks[i].title); //use i instead of 0
-    }
+    const currentDate = new Date();
+    const date = format(currentDate, 'dd/MM/yyyy');
+    this.tasks = this.tasks.filter((t) => t.daily_reminder || (!t.daily_reminder && date === t.reminder_date));
+    this.tasks.sort((a) => a.reminder_utc_hours * 60 + a.reminder_utc_minutes);
   }
 
   select(task) {

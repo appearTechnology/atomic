@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {ModalController, Platform} from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { LocalNotifications, ScheduleEvery } from '@capacitor/local-notifications';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -48,6 +49,10 @@ export class AddTaskModalComponent implements OnInit {
       notificationId: time,
       status: false
     };
+
+    if(!this.daily_reminder) {
+      value.reminder_date = format(at, 'dd/MM/yyyy');
+    }
 
     if (this.title.length != 0) {
       const taskResponse = this.taskService.newTask(value);

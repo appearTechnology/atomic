@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AlertController, ModalController, Platform} from '@ionic/angular';
 import {TaskService} from '../../services/task.service';
 import {LocalNotifications, CancelOptions} from '@capacitor/local-notifications';
+import {format} from "date-fns";
 
 @Component({
   selector: 'app-edit-task',
@@ -43,7 +44,7 @@ export class EditTaskComponent implements OnInit {
     }
   }
 
-  async save(value?) {
+  async save() {
     const time = (new Date()).getTime();
     const at = new Date(this.reminder_time);
     const notificationId = this.task.notificationId;
@@ -53,6 +54,10 @@ export class EditTaskComponent implements OnInit {
     this.task.reminder_utc_minutes = at.getUTCMinutes();
     this.task.notificationId = time;
     this.task.status = false;
+
+    if(!this.daily_reminder) {
+      this.task.reminder_date = format(at, 'dd/MM/yyyy');
+    }
 
     if (this.title.length !== 0) {
       const taskResponse = this.taskService.updateTask(this.task, this.task.id);
