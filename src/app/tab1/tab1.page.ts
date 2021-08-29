@@ -84,13 +84,14 @@ export class Tab1Page implements OnInit {
 
 
 
-  async edit() {
+  async edit(task) {
     const modal = await this.modalController.create({
       component: EditTaskComponent,
       cssClass: 'my-custom-class',
       swipeToClose: true,
       componentProps: {
         uid: this.uid,
+        task
       },
       presentingElement: this.routerOutlet.nativeEl
     });

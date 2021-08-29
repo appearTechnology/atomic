@@ -18,8 +18,8 @@ export class TaskService {
     private afs: AngularFirestore
   ) { }
 
-  async newTask(task: any) {
-    return await this.afs.collection(`task`).add(task);
+  newTask(task: any) {
+    return this.afs.collection(`task`).add(task);
   }
 
   getTasks(id) {
@@ -42,5 +42,13 @@ export class TaskService {
     this.afs.collection<Task>('task').doc(id).update({
       status
     });
+  }
+
+  updateTask(task, id) {
+    return this.afs.collection<Task>('task').doc(id).update(task);
+  }
+
+  deleteTask(id) {
+    return this.afs.collection<Task>('task').doc(id).delete();
   }
 }

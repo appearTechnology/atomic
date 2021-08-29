@@ -36,21 +36,22 @@ export class AddTaskModalComponent implements OnInit {
     }
   }
 
-  async save(value?) {
+  save(value?) {
     const time = (new Date()).getTime();
+    const at = new Date(this.reminder_time);
     value = {
       title: this.title,
       daily_reminder: this.daily_reminder,
-      reminder_time: this.reminder_time,
+      reminder_utc_hours: at.getUTCHours(),
+      reminder_utc_minutes: at.getUTCMinutes(),
       uid: this.uid,
       notificationId: time,
       status: false
     };
 
     if (this.title.length != 0) {
-      const taskResponse = await this.taskService.newTask(value);
-      taskResponse.get().then((snapshot) => {
-        console.log(snapshot.id);
+      const taskResponse = this.taskService.newTask(value);
+      taskResponse.then((resp) => {
         if(this.platform.is('cordova')) {
           LocalNotifications.schedule({
             notifications: [{

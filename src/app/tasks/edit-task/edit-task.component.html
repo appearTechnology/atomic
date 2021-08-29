@@ -1,3 +1,45 @@
-<p>
-  edit-task works!
-</p>
+<!--<ion-header class="ion-no-border">
+  <ion-toolbar transparent>
+    <ion-button ion-button icon-only fill="clear" size="large" color="dark" (click)="close()" slot="end">
+      <ion-icon name="close" style="color: black"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>-->
+<ion-header class="ion-no-border">
+  <ion-toolbar transparent>
+    <h3 style='padding-left: 15px; font-family: "PulpLight"; font-size: 30px;'>Edit a habit</h3>
+    <ion-button ion-button icon-only fill="clear" size="large" color="dark" (click)="close()" slot="end">
+      <ion-icon name="close" style="color: black"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="task-date" style='padding-left: 0px;'>
+    {{task.title}}
+    <ion-item lines='none' style='background-color: #fff; height: 100px; padding-top: 30px; border-bottom: 1px #E5E5E5 solid'>
+      <ion-input [(ngModel)]="title" autocapitalize="words" style='font-size: 20px;' placeholder='Name of task'></ion-input>
+    </ion-item>
+
+    <ion-item lines='none' style='background-color: #fff; height: 100px; padding-top: 30px; border-bottom: 1px #E5E5E5 solid'>
+      <h3 style='font-size: 20px;'>
+        Daily reminder
+      </h3>
+      <ion-toggle [(ngModel)]="daily_reminder"  mode='ios' slot='end'></ion-toggle>
+    </ion-item>
+
+    <ion-item lines='none' style='background-color: #fff; height: 100px; padding-top: 30px; border-bottom: 1px #E5E5E5 solid'>
+      <h3 style='font-size: 20px;'>
+        Time
+      </h3>
+      <ion-datetime [(ngModel)]="reminder_time" display-format="h:mm A" picker-format="h:mm A" slot='end'></ion-datetime>
+    </ion-item>
+
+
+    <ion-button color="primary" style='float: right; margin-top: 40px; margin-right: 20px;' (click)='save()'>Update</ion-button>
+    <ion-button color="danger" style='float: right; margin-top: 40px; margin-right: 20px;' (click)="deleteConfirmation()">Delete</ion-button>
+  </div>
+
+
+</ion-content>

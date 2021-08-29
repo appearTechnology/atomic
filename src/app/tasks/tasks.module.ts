@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { IconsModule } from '../icons.module';
 
-import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component'
+import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
+import {EditTaskComponent} from './edit-task/edit-task.component';
 
 
 @NgModule({
@@ -15,10 +16,12 @@ import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component
     IconsModule,
   ],
   declarations: [
-    AddTaskModalComponent
+    AddTaskModalComponent,
+    EditTaskComponent
   ],
   exports: [
-    AddTaskModalComponent
+    AddTaskModalComponent,
+    EditTaskComponent
   ]
 })
 export class TasksComponentsModule { }
