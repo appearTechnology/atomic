@@ -112,7 +112,11 @@ export class Tab1Page implements OnInit {
     const currentDate = new Date();
     const date = format(currentDate, 'dd/MM/yyyy');
     this.tasks = this.tasks.filter((t) => t.daily_reminder || (!t.daily_reminder && date === t.reminder_date));
-    this.tasks.sort((a) => a.reminder_utc_hours * 60 + a.reminder_utc_minutes);
+    this.tasks = this.tasks.sort((a, b) => {
+      const secondsA = (a.reminder_utc_hours * 60 + a.reminder_utc_minutes);
+      const secondsB = (b.reminder_utc_hours * 60 + b.reminder_utc_minutes);
+      return secondsA - secondsB;
+    });
   }
 
   select(task) {
