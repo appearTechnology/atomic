@@ -38,12 +38,6 @@ export class TaskService {
     return this.tasks
   }
 
-  updateStatusForTask(status, id) {
-    this.afs.collection<Task>('task').doc(id).update({
-      status
-    });
-  }
-
   updateTask(task, id) {
     return this.afs.collection<Task>('task').doc(id).update(task);
   }

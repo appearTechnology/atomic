@@ -121,9 +121,27 @@ export class Tab1Page implements OnInit {
   }
 
   select(task) {
-    const status = !task.status;
-    this.taskService.updateStatusForTask(status, task.id);
+    if(task.daily_reminder) {
+      const statusKey = this.getStatusKeyForRepeatingTask();
+      task[statusKey] = !task[statusKey];
+      this.taskService.updateTask(task, task.id);
+    } else {
+      task.status = !task.status;
+      this.taskService.updateTask(task, task.id);
+    }
     console.log(task);
   }
 
+  getCurrentStatusForTask(task) {
+    if(task.daily_reminder) {
+      const statusKey = this.getStatusKeyForRepeatingTask();
+      return task[statusKey] || false;
+    } else {
+      return task.status;
+    }
+  }
+
+  getStatusKeyForRepeatingTask() {
+    return format(new Date(), 'dd_MM_yyyy') + '_status';
+  }
 }
